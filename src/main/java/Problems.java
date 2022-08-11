@@ -3,6 +3,32 @@ import java.util.Objects;
 import java.util.Stack;
 
 public class Problems {
+    public static int removeDuplicates(int[] nums) {
+        if (nums.length == 0)
+            return 0;
+        int counter = 1;
+        int placeholder = 999;
+
+        int temp = 0;
+        int uniqueIndex = 0;
+        for (int i = 0; i < nums.length; i++) {
+            temp = nums[i];
+
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] != temp && nums[j] != placeholder) {
+                    uniqueIndex++;
+                    int temp2 = nums[j];
+                    nums[uniqueIndex] = temp2;
+                    counter++;
+                    break;
+                } else {
+                    nums[j] = placeholder;
+                }
+            }
+        }
+        return counter;
+    }
+
     public static boolean isPalindrome(int x) {
         if (x < 0) {
             return false;
@@ -113,13 +139,4 @@ public class Problems {
             return new ListNode(list2.val, mergeTwoLists(list2.next, list1));
     }
 
-    public static ListNode createNodeList(int... values) {
-        ListNode head = new ListNode(values[0]);
-        ListNode prev = head;
-        for (int i = 1; i < values.length; i++) {
-            prev.next = new ListNode(values[i]);
-            prev = prev.next;
-        }
-        return head;
-    }
 }
